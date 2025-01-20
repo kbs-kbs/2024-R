@@ -129,3 +129,6 @@ as.integer(bt.new)
 bt.new[7] <-'B'
 bt.new[8] <-'C' 
 bt.new
+sort(levels(bt.new))
+levels(bt.new) <- sort(levels(bt.new))
+sort(levels(bt.new))
