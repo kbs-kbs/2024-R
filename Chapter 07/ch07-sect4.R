@@ -10,6 +10,7 @@ summary(sp)                       # 분리 결과 요약
 
 sp$setosa                         # setosa 품종의 데이터 확인
 sp$virginica                      # virginica 품종의 데이터 확인
+sp$versicolor                     # versicolor 품종의 데이터 확인
 is.data.frame(sp$setosa)
 
 # code 7-12
@@ -24,7 +25,11 @@ subset(iris, Sepal.Length > 7.6,
 
 #######################################################
 iris[iris$Species == "setosa", ]
+# iris[iris$Species == "setosa"] # 오류
+
+# 조건에 맞는 모든 행을 선택 한 후, 특정 열만 보이게
 iris[iris$Sepal.Length > 7.6, ][c('Petal.Length', 'Petal.Width')]
+iris[iris$Sepal.Length > 7.6, ][c('Sepal.Length', 'Petal.Length', 'Petal.Width')]
 
 identical(subset(iris, Species == "setosa"), iris[iris$Species == "setosa", ])
 #######################################################

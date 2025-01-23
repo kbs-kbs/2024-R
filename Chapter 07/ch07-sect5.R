@@ -13,7 +13,9 @@ sample(1:5, 7, replace = TRUE)
 ###########################
 
 # code 7-14
+set.seed(1)
 idx <- sample(1:nrow(iris), size=50, replace = FALSE)
+idx # 행 번호 벡터
 iris.50 <- iris[idx,]               # 50개의 행 추출
 dim(iris.50)                        # 행과 열의 개수 확인
 head(iris.50)
@@ -45,8 +47,9 @@ sample(1:4, size=5, replace=T)
 # TRUE를 반환하고, 그렇지 않으면 FALSE를 반환
 if (!require(dplyr)) {
   install.packages("dplyr")
+  library(dplyr)
 }
-# library(dplyr)
+
 sample_n(iris, 10)     # 10개
 sample_frac(iris)      # 전체
 sample_frac(iris, .1)  # 10%
@@ -71,3 +74,5 @@ for(i in 1:ncol(com)) { # 조합을 출력
 choose(5, 3)
 choose(5, 4)
 choose(5, 2)
+
+# 종료
