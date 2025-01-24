@@ -13,6 +13,8 @@ if (!require("Rtsne")) {
 
 # 패키지 로드
 library(Rtsne)
+
+install.packages("ggplot2")
 library(ggplot2)
 
 
@@ -43,6 +45,37 @@ df.tsne_2d <- data.frame(tsne_2d$Y)
 ggplot(df.tsne_2d, aes(x=X1, y=X2, color=ds.y)) +
   geom_point(size=2)
 
+####################################
+# 2차원 그래프를 3개 겹치는 경우
+# 데이터 준비
+ds <- iris[,-5]             # 품종 정보 제외
+dup <- which(duplicated(ds)) # 중복 데이터 확인
+ds <- ds[-dup,]             # 중복 데이터 제거
+ds.y <- iris$Species[-dup]  # 중복을 제외한 품종 정보
+
+# 3개의 2D 축 선택: (X1 vs X2), (X1 vs X3), (X2 vs X3)
+df.2d_overlay <- data.frame(
+  X1 = ds[,1], 
+  X2 = ds[,2], 
+  X3 = ds[,3],
+  X4 = ds[,4],
+  Species = ds.y
+)
+
+# 겹치는 방식의 그래프
+ggplot() +
+  geom_point(data = df.2d_overlay, aes(x = X1, y = X2, color = Species), size = 2, alpha = 0.7) +
+  geom_point(data = df.2d_overlay, aes(x = X1, y = X3, color = Species), shape = 17, size = 2, alpha = 0.7) +
+  geom_point(data = df.2d_overlay, aes(x = X2, y = X3, color = Species), shape = 15, size = 2, alpha = 0.7) +
+  labs(title = "Overlayed 2D Projections of Original Features",
+       x = "Feature Combination (Various Axes)",
+       y = "Feature Combination (Various Axes)") +
+  theme_minimal()
+
+
+
+
+
 install.packages(c("rgl", "car"))
 # car(Companion to Applied Regression) 패키지는 
 # R에서 회귀 분석과 통계 분석을 위한 도구를 제공하는 
@@ -54,6 +87,8 @@ library("car")
 # 3D 그래프 생성 및 시각화 패지지
 library("rgl") # R Graphics Library
 
+
+install.packages("mgcv")
 # mgcv는 일반화 가법 모델(Generalized Additive Models, GAM)을 
 # 지원하는 R 패키지
 # 일반화 가법 모델(GAM, Generalized Additive Models)
